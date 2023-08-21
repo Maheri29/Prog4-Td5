@@ -29,7 +29,32 @@ public class RepositoryImpl {
         employeeRepository.save(employee);
     }
 
-    public void save(EmployeeCnaps employeeCnaps) {
-        employeeCnapsRepository.save(employeeCnaps);
+    public void saveToCnaps(Employee toSave) {
+
+        EmployeeCnaps existingCnapsRecord = employeeCnapsRepository.findByPersonalEmail(toSave.getPersonalEmail())
+          .orElse(null);
+
+        String cnapsToUse = (existingCnapsRecord != null && existingCnapsRecord.getCnaps() != null)
+          ? existingCnapsRecord.getCnaps()
+          : toSave.getCnaps();
+        if (cnapsToUse == null) {
+            cnapsToUse = toSave.getCnaps();
+        }
+
+        employeeCnapsRepository.save(EmployeeCnaps.builder()
+          .address(toSave.getAddress())
+          .address(toSave.getAddress())
+          .cin(toSave.getCin())
+          .cnaps(cnapsToUse)
+          .firstName(toSave.getFirstName())
+          .lastName(toSave.getLastName())
+          .birthdate(toSave.getBirthdate())
+          .childrenNumber(toSave.getChildrenNumber())
+          .personalEmail(toSave.getPersonalEmail())
+          .professionalEmail(toSave.getProfessionalEmail())
+          .entranceDate(toSave.getEntranceDate())
+          .departureDate(toSave.getDepartureDate())
+          .build());
+
     }
 }

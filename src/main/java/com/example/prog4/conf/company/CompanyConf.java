@@ -1,4 +1,4 @@
-package com.example.prog4.config;
+package com.example.prog4.conf.company;
 
 import com.example.prog4.repository.db1.entity.Phone;
 import lombok.Data;

@@ -27,7 +27,7 @@ public class PhoneMapper {
         else {
             Optional<Phone> existPhone = phoneRepository.findById(fromView.getId());
             if (existPhone.isPresent() && !existPhone.get().getEmployee().getId().equals(employeeId)){
-                throw new BadRequestException("The phone " + fromView.getValue() + " already used by another employeeCnaps.");
+                throw new BadRequestException("The phone " + fromView.getValue() + " already used by another employee.");
             }
             return phoneRepository.save(Phone.builder().id(fromView.getId()).value(valueFromView).build());
         }

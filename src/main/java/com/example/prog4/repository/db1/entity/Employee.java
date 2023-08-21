@@ -1,9 +1,8 @@
 package com.example.prog4.repository.db1.entity;
 
-import com.example.prog4.repository.db1.entity.Position;
-import com.example.prog4.repository.db1.entity.Phone;
 import com.example.prog4.repository.db1.entity.enums.Csp;
 import com.example.prog4.repository.db1.entity.enums.Sex;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -36,7 +35,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @NoArgsConstructor
 @EqualsAndHashCode
 @AllArgsConstructor
-@Table(name = "\"employeeCnaps\"")
+@Table(name = "\"employee\"")
 public class Employee implements Serializable {
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -45,16 +44,31 @@ public class Employee implements Serializable {
     private String cnaps;
     private String image;
     private String address;
+
+    @Column(name = "last_name")
     private String lastName;
+
+    @Column(name = "first_name")
     private String firstName;
+
+    @Column(name = "personal_email")
     private String personalEmail;
+
+    @Column(name = "professional_email")
     private String professionalEmail;
+
+    @Column(name = "registration_number")
     private String registrationNumber;
 
-    private LocalDate birthDate;
+    private LocalDate birthdate;
+
+    @Column(name = "entrance_date")
     private LocalDate entranceDate;
+
+    @Column(name = "departure_date")
     private LocalDate departureDate;
 
+    @Column(name = "children_number")
     private Integer childrenNumber;
 
     @Enumerated(EnumType.STRING)

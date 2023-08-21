@@ -5,11 +5,13 @@ import com.example.prog4.model.utilities.DateRange;
 import com.example.prog4.repository.db1.entity.Employee;
 import com.example.prog4.repository.db1.entity.enums.Sex;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.query.QueryUtils;
 import org.springframework.stereotype.Repository;
@@ -20,9 +22,11 @@ import java.util.List;
 @Repository
 @AllArgsConstructor
 public class EmployeeManagerDao {
-    private EntityManager entityManager;
+    @Qualifier("postgres1EntityManagerFactory")
+    private final EntityManagerFactory entityManagerFactory;
 
     public List<Employee> findByCriteria(String lastName, String firstName, String countryCode, Sex sex, String position, DateRange entranceRange, DateRange departureRange, Pageable pageable) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Employee> query = builder.createQuery(Employee.class);
         Root<Employee> root = query.from(Employee.class);

@@ -22,7 +22,7 @@ import java.util.List;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping("/server/employeeCnaps")
+@RequestMapping("/server/employee")
 public class EmployeeController {
     private EmployeeMapper employeeMapper;
     private EmployeeValidator employeeValidator;

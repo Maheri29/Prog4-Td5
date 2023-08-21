@@ -1,7 +1,7 @@
 package com.example.prog4.controller;
 
 
-import com.example.prog4.config.CompanyConf;
+import com.example.prog4.conf.company.CompanyConf;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
