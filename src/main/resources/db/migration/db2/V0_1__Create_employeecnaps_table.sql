@@ -1,7 +1,5 @@
-create extension if not exists "uuid-ossp";
-
 CREATE TABLE employee_cnaps (
-id VARCHAR CONSTRAINT employee_cnaps_pk PRIMARY KEY DEFAULT uuid_generate_v4(),
+id VARCHAR PRIMARY KEY,
 cin VARCHAR,
 cnaps VARCHAR,
 image VARCHAR,

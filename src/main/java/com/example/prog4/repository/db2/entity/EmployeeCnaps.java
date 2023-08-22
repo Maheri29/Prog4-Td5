@@ -23,7 +23,6 @@ import java.time.LocalDate;
 @Table(name = "\"employee_cnaps\"")
 public class EmployeeCnaps {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     private String cin;
     private String cnaps;
