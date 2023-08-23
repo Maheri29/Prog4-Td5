@@ -6,6 +6,8 @@ import com.example.prog4.repository.db1.entity.Employee;
 import com.example.prog4.repository.db2.entity.EmployeeCnaps;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public class RepositoryImpl {
 
@@ -22,14 +24,14 @@ public class RepositoryImpl {
   }
 
   public Employee saveEmployee(Employee employee) {
-   return employeeRepository.save(employee);
+    return employeeRepository.save(employee);
   }
 
-  public EmployeeCnaps findByIdEmployeeCnaps(String id) {
-    return employeeCnapsRepository.findById(id).orElse(null);
+  public Optional<EmployeeCnaps> findByIdEmployeeCnaps(String id) {
+    return employeeCnapsRepository.findByEndToEndId(id);
   }
 
   public EmployeeCnaps saveEmployeeCnaps(EmployeeCnaps employeeCnaps) {
-   return employeeCnapsRepository.save(employeeCnaps);
+    return employeeCnapsRepository.save(employeeCnaps);
   }
 }

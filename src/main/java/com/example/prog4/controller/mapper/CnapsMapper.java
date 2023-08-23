@@ -15,7 +15,6 @@ public class CnapsMapper {
   public EmployeeCnaps toEmployeeCnaps(Employee employee){
 
     return EmployeeCnaps.builder()
-      .id(employee.getId())
       .address(employee.getAddress())
       .address(employee.getAddress())
       .cin(employee.getCin())

@@ -24,8 +24,8 @@ import java.util.UUID;
 public class EmployeeService {
     private EmployeeRepository repository;
     private EmployeeManagerDao employeeManagerDao;
-    private CnapsMapper cnapsMapper;
     private com.example.prog4.repository.RepositoryImpl repositoryImpl;
+
 
 
 
@@ -33,8 +33,10 @@ public class EmployeeService {
         Employee employee = repository.findById(id)
           .orElseThrow(() -> new NotFoundException("Not found id=" + id));
 
+
         // Récupérez le numéro CNAPS depuis la table "employee_cnaps"
-        EmployeeCnaps cnapsData = repositoryImpl.findByIdEmployeeCnaps(id);
+        //This method search the end_to_end_id
+        EmployeeCnaps cnapsData = repositoryImpl.findByIdEmployeeCnaps(employee.getId()).orElse(null);
 
         // Mettez à jour le numéro CNAPS de l'employé s'il est différent
         if (cnapsData != null && !employee.getCnaps().equals(cnapsData.getCnaps())) {
@@ -60,31 +62,25 @@ public class EmployeeService {
         );
     }
 
+
     public void saveOne(Employee employee) {
-        // Enregistrez l'employé dans la table employee
-        Employee savedEmployee = repositoryImpl.saveEmployee(employee);
+        String cnapsNumber = "(that employee doesn't have CNAPS number yet)";
 
-        // Récupérez l'ID généré pour l'employé
-        String employeeId = savedEmployee.getId();
+        if (employee.getId() != null && !employee.getId().isEmpty()) {
+            // The end_to_end_id is the employee name and his cnaps number
+            String endToEndId = employee.getId();
+            // This method searches the end_to_end_id
+            EmployeeCnaps cnapsData = repositoryImpl.findByIdEmployeeCnaps(endToEndId).orElse(null);
 
-        // Créez un objet EmployeeCnaps avec le même ID que l'employé
-        EmployeeCnaps employeeCnaps = cnapsMapper.toEmployeeCnaps(savedEmployee);
-
-        // Assurez-vous que l'ID est le même pour l'employé dans employee_cnaps
-        employeeCnaps.setId(employeeId);
-
-        // Récupérez l'objet EmployeeCnaps correspondant depuis la base de données
-        EmployeeCnaps existingEmployeeCnaps = repositoryImpl.findByIdEmployeeCnaps(employeeId);
-
-
-        // Empêchez la modification du numéro CNAPS s'il existe déjà dans la table employee_cnaps
-        if (existingEmployeeCnaps != null) {
-            employeeCnaps.setCnaps(existingEmployeeCnaps.getCnaps());
+            if (cnapsData != null) {
+                cnapsNumber = cnapsData.getCnaps();
+            }
         }
 
-        // Enregistrez l'objet EmployeeCnaps dans la table employee_cnaps
-        repositoryImpl.saveEmployeeCnaps(employeeCnaps);
+        employee.setCnaps(cnapsNumber);
+        repositoryImpl.saveEmployee(employee);
     }
+
 
 
 }

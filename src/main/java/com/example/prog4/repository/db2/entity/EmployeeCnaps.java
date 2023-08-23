@@ -14,6 +14,8 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
+import static jakarta.persistence.GenerationType.IDENTITY;
+
 @Entity
 @AllArgsConstructor
 @Getter
@@ -23,6 +25,7 @@ import java.time.LocalDate;
 @Table(name = "\"employee_cnaps\"")
 public class EmployeeCnaps {
     @Id
+    @GeneratedValue(strategy = IDENTITY)
     private String id;
     private String cin;
     private String cnaps;
@@ -53,7 +56,8 @@ public class EmployeeCnaps {
 
     @Column(name = "children_number")
     private Integer childrenNumber;
-//    @Column(name = "end_to_end_id")
-//    private String EndToEndId;
+
+    @Column(name = "end_to_end_id")
+    private String endToEndId;
 
 }
